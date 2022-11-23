@@ -8,7 +8,6 @@ const app = express()
 conexionOfDb()
 dotenv.config()
 
-
 app.use(cors())
 app.use(express.json())
 
