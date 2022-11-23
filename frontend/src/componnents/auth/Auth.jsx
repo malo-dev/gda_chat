@@ -1,11 +1,43 @@
 import React, { useState } from "react";
+
 import "./Auth.css";
 import Logo from "../../img/logo.png";
 import { logIn, signUp } from "../../actions/AuthActions.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast,toastOptions,ToastContainer } from "react-toastify/dist/components";
 
 const Auth = () => {
+  const [ pic, setPic ] = useState()
+  const [upload, setUpload] = useState(false)
+  const postDetails = async (tof) => {
+    setUpload(true)
+    if (tof === undefined) {
+      toast.warning('Enter an Image', toastOptions)
+      return;
+    }
+    if (tof.type === 'image/pjeg' || tof.type === 'image/png' || tof.type === 'image/jpg') {
+      const data = new FormData()
+      data.append('file', tof)
+      data.append('upload_preset', 'chat-app')
+      data.append('cloud_name', 'md-chatapp-mern')
+      await fetch('https://api.cloudinary.com/v1_1/md-chatapp-mern/image/upload', {
+        method: 'POST',
+        body: data,
+      }).then(res => res.json())
+        .then(data => {
+          setPic(data)
+          setUpload(false)
+        })
+        .catch((err) => {
+          toast.error(err, toastOptions)
+          setUpload(false)
+        })
+    } else {
+      toast.error('An Error occured', toastOptions);
+      setUpload(false)
+    }
+  }
   const initialState = {
     name: "",
     email: "",
@@ -106,6 +138,7 @@ const Auth = () => {
               name="pic"
               value={data.pic}
               onChange={handleChange}
+              onClick = {postDetails}
             />)}
           </div>
           <span
@@ -145,6 +178,7 @@ const Auth = () => {
           </div>
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

@@ -11,9 +11,8 @@ dotenv.config()
 const app = express()
 app.use(cors())
 app.use(express.json())
-// app.use(notFound())
-// app.use(errorHandler)
-app.use('/auth',userRoutes)
+app.use('/auth', userRoutes)
+app.use('/api/chat',chatRoutes)
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
 	console.log(`your app is turning on port http://localhost:${PORT}`)
