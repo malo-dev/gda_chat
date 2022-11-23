@@ -4,7 +4,7 @@ import generateToken from '../utils/generateToken.js';
 import bcrypt from 'bcrypt'
  const registerUser = asyncHandler(async (req, res) => {
 	
-	const { name, email, password, pic } = req.body
+	const { name, email, password } = req.body
 	if(!name || !email || !password){
 		res.status(400);
 		throw new Error("Please fullfilled all the field")
@@ -23,7 +23,6 @@ import bcrypt from 'bcrypt'
 		password : hash
 	
 	})
-	console.log(user);
 
 	if (user) {
 		res.status(201).json({
