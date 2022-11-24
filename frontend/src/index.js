@@ -7,17 +7,14 @@ import App from './App';
 import { Route,BrowserRouter,Routes } from 'react-router-dom'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <Provider store={store}>
-        <BrowserRouter>
-    <Routes>
-        <Route path='*' element={<ChakraProvider><App /></ChakraProvider>} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path='*' element={<ChakraProvider><App /></ChakraProvider>} />
+        </Routes>
+      </BrowserRouter>
     </Provider>
-
-    
-  </React.StrictMode>
+  
 );
 
 

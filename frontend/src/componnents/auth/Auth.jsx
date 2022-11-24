@@ -1,13 +1,20 @@
-import React, { useState } from "react";
-
+import React, { useState,useEffect } from "react";
 import "./Auth.css";
 import Logo from "../../img/logo.png";
 import { logIn, signUp } from "../../actions/AuthActions.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast,toastOptions,ToastContainer } from "react-toastify/dist/components";
+import { ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Auth = () => {
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
   const [ pic, setPic ] = useState()
   const [upload, setUpload] = useState(false)
   const postDetails = async (tof) => {
@@ -27,6 +34,7 @@ const Auth = () => {
       }).then(res => res.json())
         .then(data => {
           setPic(data)
+          console.log(data);
           setUpload(false)
         })
         .catch((err) => {
@@ -53,7 +61,6 @@ const Auth = () => {
   const [data, setData] = useState(initialState);
 
   const [confirmPass, setConfirmPass] = useState(true);
-  
   const resetForm = () => {
     setData(initialState);
     setConfirmPass(confirmPass);
@@ -75,7 +82,8 @@ const Auth = () => {
 
   return (
     <div className="Auth">
-
+    <div className="blur" style={{ top: "-18%", right: "0" }}></div>
+      <div className="blur" style={{ top: "36%", left: "-8rem" }}></div>
       <div className="a-left">
         <img src={Logo} alt="" />
 
@@ -136,7 +144,7 @@ const Auth = () => {
               type="file"
               className="infoInput"
               name="pic"
-              value={data.pic}
+              value={pic}
               onChange={handleChange}
               onClick = {postDetails}
             />)}

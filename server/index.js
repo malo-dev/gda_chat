@@ -13,7 +13,6 @@ app.use(express.json())
 
 app.use('/auth', userRoutes)
 app.use('/api/chat', chatRoutes)
-
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
 	console.log(`your app is turning on port http://localhost:${PORT}`)
