@@ -1,19 +1,23 @@
-import user from "../models/authModel.js";
+import User from "../models/authModel.js";
 import formidable from "formidable";
 import validator from "validator";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
-import  path  from 'path'
+import path from 'path'
+import dirname  from "path";
 
-const userRegister = async (req,res) => {
+const userRegister = async (req, res) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,Content-Type, Accept");
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
 	const form = formidable();
-	form.parse(req, (err, fields, files) => {
+	form.parse(req, async  (err, fields, files) => {
 		
 		const { username, email, password, confirmPassword } = fields;
 		
 		const { image } = files
-		console.log(image)
+		
 		const error = [];
 		if (!username) {
 			error.push('please provide user name')
@@ -34,65 +38,66 @@ const userRegister = async (req,res) => {
 		}
 		if (password && password.length < 6) {
 			error.push('please  your password must be 6 character')
-		}if (image) {
-			console.log(Object.keys(files).length);
+		}if (!image) {
+			error.push('please provide image');
 		}
+		
 		if (error.length > 0) {
-			res.status(400).json({
+			return res.status(400).json({
 				error : {errorMessage : error}
 			})
 		} else {
-			console.log(files.profilePic)
-			var oldPath = files.profilePic.path;
-        	var newPath = path.join(__dirname, '../../../client/public/image')
-                + '/'+files.profilePic.name
-        		var rawData = fs.readFileSync(oldPath)
+			let oldpath = files.image.filepath;
+			 let newpath =  '/home/brijuth/codes/chat_gda/backend/controllers' + '/images' + '/' + files.image.originalFilename;
+        		
       
-        fs.writeFile(newPath, rawData, function(err){
-            if(err) console.log(err)
-            return res.send("Successfully uploaded")
-        })
-			
-			// const getImageName = image.originalFilename
-			// const randNumber = Math.floor(Math.random() * 99999)
-			// const newImageName = randNumber + getImageName
-			// files.image.originalFilename = newImageName
-			// const newPath = dirname + `../../../client/public/image/${files.image.originalFilename
-			// 	}`;
+       fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+		   console.log("images is uploaded")
+	   });
 			try {
-				// const checkUser = await user.findOne({ email : email})
-				// if (checkUser) {
-				// 	res.status(404).json({
-				// 		error: {
-				// 		errorMessage : ['Your email already exited'] 
-				// 	}
-				// 	})
-				// } else {
-					// fs.copyFile("files.image.path", newPath, async (error) => {
-					// 	if (!error) {
-					// 	const userRegister = await user.create({
-					// 		username,
-					// 		email,
-					// 		password: await bcrypt.hash(password,10),
-					// 		image : files.image.originalFilename
-							
-					// 	})
-					// 		res.status(200).json(userRegister)
-					// 		const token = jwt.sign({
-					// 				id: userRegister._id,
-					// 				email: userRegister.email,
-					// 				username: userRegister.username,
-					// 				image: userRegister.image,
-					// 				registerTime : userRegister.createAt
-					// 			},process.env.SECRET_KEY, {
-					// 				expiresIn:"30d"
-					// 			})
-					// 	}
-					// })
+				const checkUser = await User.findOne({ email})
+				if (checkUser) {
+					return res.status(404).json({
+						error: {
+							errorMessage : ['Your mail already exited']
+						}
+					})
+				} else {
+					const userRegister = await User.create({
+						username,
+						email,
+						password: await bcrypt.hash(password, 10),
+						image: files.image.originalFilename,
+					})
+	
+					// if (userRegister) {
+					// 	res.status(201).json(userRegister)
+					// }
+					const token = jwt.sign({
+						id: userRegister._id,
+						email: userRegister.email,
+						username: userRegister.username,
+						image: userRegister.image,
+						registerTime : userRegister.createAt
+					}, process.env.SECRET_KEY, {
+						expiresIn :"30d"
+					})
 					
-				// }
-			} catch (error) {
-				console.log(error)	
+					const options = {
+						expires : new Date(Date.now() + process.env.COOKIE_EXP *24*60*60*1000)
+					}
+					res.status(201).cookie('authToken', token, options).json({
+						successMessage: "Your Register successfull",
+						token : token
+					})
+				}
+			} catch (error) {  
+				res.status(404).json({
+					error: {
+						errorMessage : "Internal Server error"
+					}
+				})	
 			}
 		}
 		res.end()

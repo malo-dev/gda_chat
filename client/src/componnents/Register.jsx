@@ -23,7 +23,7 @@ const Register = () => {
     if (e.target.files.length !== 0) {
       setstate({
         ...state,
-        [e.target.name] : e.target.files[0]
+        [e.target.name]: e.target.files[0]
       })
     }
     const reader = new FileReader()
@@ -43,7 +43,6 @@ const Register = () => {
     formData.append('confirmPassword', confirmPassword)
     formData.append('image', image)
     dispatch(userRegister(formData))
-    // console.log(state);
   }
   return (
     <div className="register">

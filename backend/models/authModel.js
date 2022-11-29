@@ -20,6 +20,6 @@ const registerSchema = mongoose.Schema({
 	{ timestamps: true }
 )
 
-const user = mongoose.model('user', registerSchema)
+const User = mongoose.model('User', registerSchema)
 
-export default user
+export default User
