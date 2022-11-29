@@ -8,8 +8,8 @@ export const userRegister = (data) => {
 		}
 		try {
 			const response  = await axios.post('/api/messenger/user-register',data,config)
-		} catch (error) {
-			
+		} catch (error) { 
+			console.log(error.response.data)
 		}
 	}
 }
