@@ -56,8 +56,8 @@ const Register = ({history}) => {
       navigate('/')
     }
     if (successMessage) {
-      dispatch({type : SUCCESS_MESSAGE_CLEAR})
-      return toast.success(successMessage, {
+     
+       toast.success(successMessage, {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -66,12 +66,12 @@ const Register = ({history}) => {
         draggable: true,
         progress: undefined,
         theme: "light",
-      })
+       })
+       dispatch({type : SUCCESS_MESSAGE_CLEAR})
       
     }
     if (error) {
-      dispatch({type : ERROR_MESSAGE_CLEAR})
-      return error.map(err => toast.error(err,{
+       error.map(err => toast.error(err,{
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -80,7 +80,8 @@ const Register = ({history}) => {
         draggable: true,
         progress: undefined,
         theme: "light",
-      }))
+       }))
+       dispatch({type : ERROR_MESSAGE_CLEAR})
     }
   }
   useEffect(() => {
