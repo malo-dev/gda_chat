@@ -1,9 +1,16 @@
-import React,{useState} from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import React,{useState,useEffect} from 'react'
+import { Link ,useNavigate} from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux'
 import { userRegister } from '../store/actions/authAction'
-
-const Register = () => {
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+import { ERROR_MESSAGE_CLEAR, SUCCESS_MESSAGE_CLEAR } from '../store/types/authType';
+const Register = ({history}) => {
+  const navigate = useNavigate()
+  const { loading,successMessage,error,authenticate,myInfo} = useSelector((state) => {
+    return state.auth
+  })
+  console.log(myInfo);
   const dispatch = useDispatch()
   const [state, setstate] = useState({
     username: "",
@@ -44,6 +51,42 @@ const Register = () => {
     formData.append('image', image)
     dispatch(userRegister(formData))
   }
+  const userRegisterValidation = async () => {
+     if (authenticate) {
+      navigate('/')
+    }
+    if (successMessage) {
+      dispatch({type : SUCCESS_MESSAGE_CLEAR})
+      return toast.success(successMessage, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+      
+    }
+    if (error) {
+      dispatch({type : ERROR_MESSAGE_CLEAR})
+      return error.map(err => toast.error(err,{
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }))
+    }
+  }
+  useEffect(() => {
+   userRegisterValidation()
+   
+  })
   return (
     <div className="register">
       <div className="card">
@@ -98,6 +141,7 @@ const Register = () => {
           </form>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   )
 }
