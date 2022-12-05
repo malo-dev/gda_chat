@@ -6,7 +6,7 @@
 > This project was started with [Create React App](https://github.com/facebook/create-react-app) on the frontend part and on the backend a node 16.x environment but also npm must be installed
 > A database (mongoDB) must be created beforehand.
 
-* __Clôner le repertoire avec__ ```git```
+* __clone the directorie with__ ```git```
 
 
 https://github.com/malo-dev/gda_chat
