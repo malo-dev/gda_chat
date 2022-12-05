@@ -10,15 +10,14 @@
 
 
 https://github.com/malo-dev/gda_chat
-```
+
 
 <h4>how to install</h4>
-```bash
+
 npm install
 
 <h4>how to start</h4>
 
-```bash
 npm start
 
 ### Configuration
