@@ -48,7 +48,7 @@ const userRegister = async (req, res) => {
 			})
 		} else {
 			let oldpath = files.image.filepath;
-			 let newpath =  '/home/brijuth/codes/chat_gda/backend/controllers' + '/images' + '/' + files.image.originalFilename;
+			 let newpath =  '/home/brijuth/codes/chat_gda/client/public/image' + '/' + files.image.originalFilename;
         		
       
        fs.rename(oldpath, newpath, function (err) {
