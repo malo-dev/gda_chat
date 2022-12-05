@@ -1,5 +1,5 @@
-# <h1>Gda-Chat</h1>
-#### 
+<h1>Gda-Chat</h1>
+
 <p>We are setting up a messaging application which will be a communication tool and which contains all the features of a chat app</p>
 
 
