@@ -11,8 +11,8 @@ const Login = () => {
   const {loading,successMessage,error,authenticate,myInfo} = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const [state, setState] = useState({
-    email: "samy@gmail.com",
-    password : "1234567",
+    email: "",
+    password : "",
   })
   
   const inputHandler = (e) => {
@@ -73,11 +73,11 @@ const Login = () => {
             
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" placeholder='email' className='form-control' id='email'  value={state.email} onChange={inputHandler} />
+              <input type="email" placeholder='email' className='form-control' id='email'   onChange={inputHandler} />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" placeholder='password' className='form-control' value={state.password} id='password' onChange={inputHandler} />
+              <input type="password" placeholder='password' className='form-control'  id='password' onChange={inputHandler} />
             </div>
             <div className="form-group">
               <input type="submit" value="register" className='btn' />

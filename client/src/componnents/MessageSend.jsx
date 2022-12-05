@@ -4,7 +4,7 @@ import { BsPlusCircle } from 'react-icons/bs'
 import { BiMessageAltEdit } from 'react-icons/bi'
 import { AiFillGift } from 'react-icons/ai'
 import {GrSend} from 'react-icons/gr' 
-const MessageSend = () => {
+const MessageSend = (inputHandle,newMessage,sendMessage) => {
 	const emojis = [
 		'😅','😆','😇',
 		'😈','😋','😎',
@@ -55,10 +55,13 @@ const MessageSend = () => {
 				<input type="text" name='message'
 					placeholder='Aa'
 					id='message'
-					className='form-control' />
+					className='form-control'
+					onChange={(e)=>{inputHandle(e)}}
+					
+				/>
 				<label htmlFor='emoji'> 😅</label>
 			</div>
-			<div className="file">
+			<div className="file" onClick={sendMessage} style={{color : "#fff"}}>
 				<GrSend />
 			</div>
 			<div className="emoji-section">

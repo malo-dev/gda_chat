@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import { BsThreeDots } from 'react-icons/bs'
 import { FaEdit } from 'react-icons/fa'
 import {BiSearch} from 'react-icons/bi'
@@ -9,13 +9,29 @@ import { useDispatch,useSelector } from 'react-redux'
 import getFriends  from '../store/actions/messengerAction'
 const Messages = () => {
 	const { friends } = useSelector(state => state.messenger)
-	const {myInfo} = useSelector(state => state.auth)
+	const [newMessage,setNewMessage] = useState("")
+	const inputHandle = (e) => {
+		setNewMessage(e.target.value)
+	}
+	const SendMessage = (e) => {
+		
+	}
+	const { myInfo } = useSelector(state => state.auth)
+	const [currentFriend,setCurrentFriend] = useState("")
 	const dispatch = useDispatch()
 	const handlefunction = async () => {
 		dispatch(getFriends())
 	}
+	const handlemess = async (friends) => {
+		if (friends && friends.length > 0) {
+			setCurrentFriend(friends[0])
+		}
+	}
 	useEffect(() => {
 		handlefunction()
+	})
+	useEffect(() => {
+		handlemess()
 	})
   return (
 	  <div className="messenger">
@@ -57,7 +73,7 @@ const Messages = () => {
 						  {
 							  friends && friends.length > 0 ? friends.map((fd) => {
 								  return (
-									  <div className="hover-friend">
+									  <div className="hover-friend" onClick={()=>setCurrentFriend(fd)}>
 										  <Friend friend={ fd} />
 									  </div>
 								 )
@@ -67,7 +83,10 @@ const Messages = () => {
 					  </div>
 				  </div>
 			  </div>
-			  <RightSide/>
+			  {
+				  currentFriend ? <RightSide currentFriend={currentFriend} inputHandle={inputHandle} newMessage={newMessage} SendMessage={SendMessage} /> : "Please Select You Friend"
+			  }
+			  
 		  </div>
 	  </div>
   )
