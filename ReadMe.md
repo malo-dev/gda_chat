@@ -12,11 +12,11 @@
 https://github.com/malo-dev/gda_chat
 
 
-<h4>how to install</h4>
+###how to install
 
 npm install
 
-<h4>how to start</h4>
+##how to start
 
 npm start
 
