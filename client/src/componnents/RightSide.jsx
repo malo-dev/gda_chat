@@ -6,7 +6,8 @@ import Message from './Message'
 import MessageSend from './MessageSend'
 import FriendInfo from './FriendInfo'
 const RightSide = (props) => {
-	const { currentFriend,inputHandle,newMessage,SendMessage } = props
+	const { currentFriend, inputHandle, newMessage, SendMessage } = props
+	
 	return (
 		<div className="col-9">
 			<div className="right-side">

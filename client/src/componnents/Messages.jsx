@@ -6,7 +6,7 @@ import ActiveFriends from './ActiveFriends'
 import Friend from './Friend'
 import RightSide from './RightSide'
 import { useDispatch,useSelector } from 'react-redux'
-import getFriends  from '../store/actions/messengerAction'
+import { getFriends,messageSend}  from '../store/actions/messengerAction'
 const Messages = () => {
 	const { friends } = useSelector(state => state.messenger)
 	const [newMessage,setNewMessage] = useState("")
@@ -14,6 +14,13 @@ const Messages = () => {
 		setNewMessage(e.target.value)
 	}
 	const SendMessage = (e) => {
+		e.preventDefault()
+		const data = {
+			senderName: myInfo.username,
+			reserveId: currentFriend._id,
+			message : newMessage ? 'Send' :'No sent'
+		}
+		dispatch(messageSend(data))
 		
 	}
 	const { myInfo } = useSelector(state => state.auth)
@@ -72,8 +79,8 @@ const Messages = () => {
 					  <div className="friends">
 						  {
 							  friends && friends.length > 0 ? friends.map((fd) => {
-								  return (
-									  <div className="hover-friend" onClick={()=>setCurrentFriend(fd)}>
+								  return ( 
+									  <div className={currentFriend._id === fd.id ? "hover-friend active " : ""} onClick={()=>setCurrentFriend(fd)}>
 										  <Friend friend={ fd} />
 									  </div>
 								 )
