@@ -11,15 +11,17 @@ const Login = () => {
   const {loading,successMessage,error,authenticate,myInfo} = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const [state, setState] = useState({
-    email: "leader@gmail.com",
+    email: "samy@gmail.com",
     password : "1234567",
   })
+  
   const inputHandler = (e) => {
     setState({
       ...state,
       [e.target.name] : e.target.value
     })
   }
+  
   const login = (e) => {
     e.preventDefault();
     dispatch(userLogin(state))
