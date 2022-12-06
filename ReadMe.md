@@ -8,17 +8,25 @@
 
 * __clone the directorie with__ ```git```
 
-
+```bash
 https://github.com/malo-dev/gda_chat
 
+<<<<<<< HEAD
 
 ###how to install
 
+=======
+<h4>how to install</h4>
+
+```bash
+>>>>>>> 921d3349af3f0c93da90f1ebbb4ea45009ff4a88
 npm install
+```
 
 ##how to start
 
 npm start
+```
 
 ### Configuration
 
