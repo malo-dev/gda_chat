@@ -8,6 +8,7 @@ import RightSide from './RightSide'
 import { useDispatch,useSelector } from 'react-redux'
 import { getFriends,messageSend}  from '../store/actions/messengerAction'
 const Messages = () => {
+	const dispatch = useDispatch()
 	const { friends } = useSelector(state => state.messenger)
 	const [newMessage,setNewMessage] = useState("")
 	const inputHandle = (e) => {
@@ -17,7 +18,7 @@ const Messages = () => {
 		e.preventDefault()
 		const data = {
 			senderName: myInfo.username,
-			reserveId: currentFriend._id,
+			reseverId: currentFriend._id,
 			message : newMessage ? 'Send' :'No sent'
 		}
 		dispatch(messageSend(data))
@@ -25,7 +26,7 @@ const Messages = () => {
 	}
 	const { myInfo } = useSelector(state => state.auth)
 	const [currentFriend,setCurrentFriend] = useState("")
-	const dispatch = useDispatch()
+	
 	const handlefunction = async () => {
 		dispatch(getFriends())
 	}

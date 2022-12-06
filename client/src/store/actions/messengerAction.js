@@ -9,15 +9,15 @@ import { FRIENDS_GET_SUCCESS } from '../types/messengerType'
 				friends : response.data.friends
 			}
 		})
-		console.log(response.data)
 	} catch (error) {
 		console.log(error.response.data);
 	}
 }
 export const messageSend = (data) => async () => {
+	
 	try {
 		const response = await axios.post('api/messenger/send-message', data);
-		console.log(response.data)
+		console.log(response.data);
 	} catch (error) {
 		console.log(error.response.data)
 	}
