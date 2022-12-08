@@ -7,7 +7,7 @@ const FriendInfo = (props) => {
 			<input type="checkbox" id='gallery' />
 			<div className="image-name">
 				<div className="image">
-					<img src={`./image/${currentFriend}`} alt={currentFriend.username} />
+					<img src={`./image/${currentFriend.image}`} alt={currentFriend.username} />
 				</div>
 				<div className="active-user">
 					Active

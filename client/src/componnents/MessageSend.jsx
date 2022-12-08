@@ -3,14 +3,14 @@ import {RiGalleryLine} from 'react-icons/ri'
 import { BsPlusCircle } from 'react-icons/bs'
 import { BiMessageAltEdit } from 'react-icons/bi'
 import { AiFillGift } from 'react-icons/ai'
-const MessageSend = ({ inputHandle, newMessage, SendMessage }) => {
+const MessageSend = ({ inputHandle,emojiSend, SendMessage,Imagesend }) => {
 	
 	const emojis = [
 		'😅','😆','😇',
 		'😈','😋','😎',
 		'😐','😤','😩',
 		'😫','😵','😶',
-		'😸','😹','😺',
+		'😸','😹','😺', 
 		'😻','😼','😽',
 		'😾','🃏' ,'🆑' ,'🆓' ,'🆖' 
 		,'🆘' ,'🌁' ,'🌉' ,'🌋' ,
@@ -38,7 +38,7 @@ const MessageSend = ({ inputHandle, newMessage, SendMessage }) => {
 				<div className="add-image">
 					Add image
 				</div>
-				<input type="file" id='pic' className='form-control' />
+				<input type="file" onChange={Imagesend} id='pic' className='form-control' />
 				<label htmlFor="pic"><RiGalleryLine/></label>
 			</div>
 			
@@ -69,7 +69,7 @@ const MessageSend = ({ inputHandle, newMessage, SendMessage }) => {
 					{
 						emojis.map(e => {
 							return (
-								<span>{e}</span>
+								<span onClick={()=>emojiSend(e)}>{e}</span>
 							)
 						})
 					}

@@ -1,7 +1,7 @@
 import MessageModel from "../../models/MessageModel.js";
 const sendMessage = async (req, res) => {
 	const { senderName, reseverId, message } = req.body
-	
+	console.log(req.body)
 	const senderId = req.myId;
 	try {
 		const insertMessage = await MessageModel.create({
@@ -19,11 +19,14 @@ const sendMessage = async (req, res) => {
 				senderId: senderId,
 				senderName: senderName,
 				reseverId: reseverId,
-				message:message
+				message: {
+					text: message,
+					image : ''
+				}
 			}
 			
 		})
-	} catch (error) {
+	} catch (error) { 
 		res.status(500).json({
 			error : {errorMessage : "Internal server error"}
 		})

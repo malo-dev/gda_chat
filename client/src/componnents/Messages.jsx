@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import { BsThreeDots } from 'react-icons/bs'
 import { FaEdit } from 'react-icons/fa'
 import {BiSearch} from 'react-icons/bi'
@@ -6,10 +6,11 @@ import ActiveFriends from './ActiveFriends'
 import Friend from './Friend'
 import RightSide from './RightSide'
 import { useDispatch,useSelector } from 'react-redux'
-import { getFriends,messageSend}  from '../store/actions/messengerAction'
+import { getFriends,messageSend,getMessage, ImageMessageSend}  from '../store/actions/messengerAction'
 const Messages = () => {
+	const scrollRef = useRef()
 	const dispatch = useDispatch()
-	const { friends } = useSelector(state => state.messenger)
+	const { friends,message } = useSelector(state => state.messenger)
 	const [newMessage,setNewMessage] = useState("")
 	const inputHandle = (e) => {
 		setNewMessage(e.target.value)
@@ -19,7 +20,7 @@ const Messages = () => {
 		const data = {
 			senderName: myInfo.username,
 			reseverId: currentFriend._id,
-			message : newMessage ? 'Send' :'No sent'
+			message : newMessage ? 'Sent' :'No sent'
 		}
 		dispatch(messageSend(data))
 		
@@ -30,17 +31,53 @@ const Messages = () => {
 	const handlefunction = async () => {
 		dispatch(getFriends())
 	}
-	const handlemess = async (friends) => {
+	const handlemess =  async (friends) => {
 		if (friends && friends.length > 0) {
 			setCurrentFriend(friends[0])
 		}
 	}
+	
+	const handleGetMessage = async () => {
+		dispatch(getMessage(currentFriend._id))
+	}
+	const emojiSend = (emu) => {
+		setNewMessage(`${newMessage}` + emu)
+	}
+	const Imagesend = (e) => {
+		if (e.target.files.length !== 0) {
+			const imagename = e.target.files[0].name;
+			const newImageName = Date.now() + imagename;
+			const formData = new FormData()
+			formData.append('imageName',newImageName)
+			formData.append('senderName', myInfo.username);
+			formData.append('reseverId', currentFriend._id)
+			formData.append('image', e.target.files[0])
+			dispatch(ImageMessageSend(formData));   
+		}
+	}
+	
+	const messageImg = async () => {
+		scrollRef.current?.scrollIntoView({behavior : 'smooth'})
+	}
 	useEffect(() => {
 		handlefunction()
-	})
-	useEffect(() => {
 		handlemess()
+		handleGetMessage()
+		messageImg()
 	})
+	
+	// useEffect(() => {
+		
+	// })
+	
+	// useEffect(() => {
+		
+		
+	// })
+	// useEffect(() => {
+		
+	// })
+	
   return (
 	  <div className="messenger">
 		  <div className="row">
@@ -92,7 +129,16 @@ const Messages = () => {
 				  </div>
 			  </div>
 			  {
-				  currentFriend ? <RightSide currentFriend={currentFriend} inputHandle={inputHandle} newMessage={newMessage} SendMessage={SendMessage} /> : "Please Select You Friend"
+				  currentFriend ? <RightSide
+					  currentFriend={currentFriend}
+					  inputHandle={inputHandle}
+					  newMessage={newMessage}
+					  SendMessage={SendMessage}
+					  message={message}
+					  scrollRef={scrollRef}
+					  emojiSend={emojiSend}
+					  Imagesend={Imagesend}
+				  /> : "Please Select You Friend"
 			  }
 			  
 		  </div>

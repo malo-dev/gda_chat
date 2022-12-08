@@ -9,7 +9,7 @@ const Friend = ({ friend }) => {
 			  </div> 
 		  </div>
 		  <div className="friend-name">
-			  <h4>{ friend.username }</h4>
+			  <h4 style={{color : "#fff"}}>{ friend.username }</h4>
 		  </div>
 	  </div>
   )

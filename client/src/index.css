@@ -1,1 +1,15 @@
-  
+ .friend{
+	display: flex;
+	width: 100%;
+	padding: 7px 15px;
+ } 
+   .friend .friend-image{
+	width: 45px;
+	height: 45px;
+	overflow: hidden;
+	border-radius: 50%;
+  }
+  .friend .friend-image img{
+	width: 100%;
+	height: 100%;
+  }

@@ -4,9 +4,8 @@ import validator from "validator";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
-import path from 'path'
-import dirname  from "path";
-
+import * as url from 'url';
+ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const userRegister = async (req, res) => {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,Content-Type, Accept");
@@ -48,8 +47,9 @@ const userRegister = async (req, res) => {
 			})
 		} else {
 			let oldpath = files.image.filepath;
-			 let newpath =  '/home/brijuth/codes/chat_gda/client/public/image' + '/' + files.image.originalFilename;
-        		
+			
+			//  let newpath =  '/home/brijuth/codes/chat_gda/client/public/image' + '/' + files.image.originalFilename;
+        		let newpath = `/home/brijuth/codes/chat_gda/client/public/image/${files.image.originalFilename}`
       
        fs.rename(oldpath, newpath, function (err) {
         if (err) throw err;

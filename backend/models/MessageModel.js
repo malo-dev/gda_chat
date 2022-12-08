@@ -6,7 +6,7 @@ const messageSchema = mongoose.Schema({
 	},
 	senderName: {
 		type: String,
-		required : true,
+		// required : true,
 	},
 	reseverId: {
 		type: String,

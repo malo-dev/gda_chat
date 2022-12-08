@@ -5,7 +5,6 @@ import authRouter from './routes/authRoute.js'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import messengerRoute from './routes/messengerRoute.js'
-
 dotenv.config()
 conexionOfDb()
 const app = express()
