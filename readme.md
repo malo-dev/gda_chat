@@ -11,6 +11,7 @@
 ```bash
 https://github.com/malo-dev/gda_chat
 
+<<<<<<< HEAD:readme.md
 <<<<<<< HEAD
 
 ###how to install
@@ -21,6 +22,9 @@ https://github.com/malo-dev/gda_chat
 ```bash
 >>>>>>> 921d3349af3f0c93da90f1ebbb4ea45009ff4a88
 npm install
+=======
+
+>>>>>>> 3c35bd9bbf74ace0920a27c225af6d0a7a5bd2d1:ReadMe.md
 ```
 
 ##how to start
