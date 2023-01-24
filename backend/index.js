@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect(`${process.env.MONGO_URL}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -21,6 +21,7 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
+  
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
@@ -49,3 +50,4 @@ io.on("connection", (socket) => {
     }
   });
 });
+module.exports  = app
